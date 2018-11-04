@@ -12,22 +12,4 @@ public class Knife : MonoBehaviour {
 		transform.Translate(transform.up * Mathf.Sign(transform.rotation.z) * Time.deltaTime*Speed);
 		}
 	}
-
-	private void OnTriggerEnter2D(Collider2D other) {
-		if(other.tag == "Apple"){
-		MyGameManager.Instance.Score += 1;
-		Destroy(gameObject);	
-		}
-		if(other.tag == "Body"){
-		IsMove = false;
-		transform.SetParent(other.transform);
-		MyGameManager.Instance.Score += 1;
-		}
-
-		if(other.tag == "Knife"){
-		MyGameManager.Instance.Loose();
-		Destroy(gameObject);
-		}
-		
-	}
 }

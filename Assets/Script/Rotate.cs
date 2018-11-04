@@ -3,23 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Rotate : Singleton<Rotate> {
- public int Counter;
- public Quaternion FirstRotation;
+ public int FirstHitAngle = -1;
+ public int HitAngle;
 
-	void Update () {
-		Counter++;
-		transform.rotation = Quaternion.Euler(0,0,3*Counter);
+ void Start(){
+		StartCoroutine(Delay());
+ }
 
-		if(NormalizeDegree(FirstRotation.eulerAngles.z) == NormalizeDegree(transform.eulerAngles.z)){
-		Player.Instance.Fire(1);
+
+		IEnumerator Delay(){
+		yield return new WaitForSeconds(0.2f);
+		float rotationAngle = NormalizeDegree(transform.rotation.eulerAngles.z);
+		HitAngle = Mathf.RoundToInt((rotationAngle));
+		print(HitAngle);
+		transform.Rotate(Vector3.forward*10);
+		StartCoroutine(Delay());
+
 	}
 
-	}
+	 public float NormalizeDegree (float angle)
+ {
+     if (angle < -360)
+         angle += 360;
+     if (angle > 360)
+         angle -= 360;
+     return angle;
+ }
 
-	float NormalizeDegree(float angle){
-		angle = (angle > 180) ? angle - 360 : angle;
-        angle = Mathf.Round(angle);
-        angle = Mathf.FloorToInt(angle);
-		return angle;
-	}
 }

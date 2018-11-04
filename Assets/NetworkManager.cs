@@ -3,66 +3,97 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 using WebSocketSharp;
+using UnityEngine.UI;
 public class NetworkManager : Singleton<NetworkManager>
 {
 
     public static WebSocket ws;
-    public Player player;
+    public Text UsernameText;
+    public string Username,EnemyName;
+    public MyGameManager myGameManager;
+    public int PlayerNumber;
+    public bool Turn;
+    public bool startGame,findMatch;
 
-    public class MyClass
-    {
-        public string status { get; set; }
-        public string type { get; set; }
-        public bool turn { get; set; }
-    }
-
-
-    public string PlayerNumber;
-    public MyClass json;
 
     public void Awake()
     {
-
-
-    var account = new Account
-    {
-        id = 51,
-        Email = "james@example.com"
-    };
 
         ws = new WebSocket("ws://192.168.137.185:4856/");
         ws.OnMessage += (sender, e) => _ws_OnMessage(sender, e);
 
         ws.Connect();
-        ws.Send(JsonConvert.SerializeObject(account));
+        //ws.Send(JsonConvert.SerializeObject(account));
     }
     public void _ws_OnMessage(object sender, MessageEventArgs e)
     {
-        Debug.Log("Laputa says: " + e.Data);
-        json = JsonConvert.DeserializeObject<MyClass>(e.Data);
+        Debug.Log(e.Data);
 
+        var account = new Account{
+            name = UsernameText.text.ToString(),
+            type = "check_name"
 
-        if (json.type != null)
-        {
-            //player.PlayerNumber = json.type;
+        };
+
+        var json = JsonConvert.DeserializeObject<Account>(e.Data);
+        string data = e.Data.ToString();
+
+         if(json.type == "check_name" && data.Contains("ok")){
+         findMatch = true;    
         }
-        player.NextTurn = json.turn;
+
+        if(findMatch){
+        account.type = "find_match";
+        ws.Send(JsonConvert.SerializeObject(account));
+        var shootInfo = JsonConvert.DeserializeObject<ShootInfo>(e.Data);
+        findMatch = false;
+         Turn = shootInfo.turn;
+        EnemyName = shootInfo.enemy_name;    
+
+        }
+
+
+
+
+
+
+        // }else if(json.type == "check_name" && e.Data.ToString().Contains("no")){
+        // myGameManager.ChangeYourName();
+        // }
+        //var jsonturnInfo = JsonConvert.DeserializeObject<TurnInfo>(e.Data);
+    }
+
+    void Activate(){
+        
+    }
+
+    public void CreateAccount(){
+        var account = new Account{
+            name = UsernameText.text.ToString(),
+            type = "check_name"
+        };
+        ws.Send(JsonConvert.SerializeObject(account));
+    }
+
+        public void SendShootInfo(Vector3 shootlocatin){
+            
+        var shootInfo = new ShootInfo{
+            self_name = UsernameText.text.ToString(),
+            enemy_name = EnemyName,
+            type = "shoot",
+            location = shootlocatin,
+            unix_time = 0,
+        };
+        Debug.LogError(shootInfo);
+        ws.Send(JsonConvert.SerializeObject(shootInfo));
     }
 
 
-    public void _ws_Fire()
-    {
 
-    var turninfo = new TurnInfo
-    {
-        shoot = true,
-        time = 1,
-        rotation = 0
-    };
-
-        var jsoninfo = JsonConvert.SerializeObject(turninfo);
-        ws.Send(jsoninfo);
+    void StartGame(){
+        
     }
+
 
 
 

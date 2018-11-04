@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{350D421D-3CFE-A241-4000-65C8FC5C98EE}</ProjectGuid>
+    <ProjectGuid>{8A90737E-F0DF-DA24-71C2-42612776CCB5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Account.cs" />
-     <Compile Include="Assets\JsonTest.cs" />
      <Compile Include="Assets\NetworkManager.cs" />
      <Compile Include="Assets\Script\AppleManager.cs" />
      <Compile Include="Assets\Script\Knife.cs" />
@@ -60,6 +59,7 @@
      <Compile Include="Assets\Script\Player.cs" />
      <Compile Include="Assets\Script\Rotate.cs" />
      <Compile Include="Assets\Script\Singleton.cs" />
+     <Compile Include="Assets\ShootInfo.cs" />
      <Compile Include="Assets\TurnInfo.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Program Files/Unity 2017.4.1f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
@@ -89,10 +89,10 @@
  <HintPath>E:/Program Files/Unity 2017.4.1f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json (3)">
- <HintPath>C:/Users/TrueDream/Documents/UnityTemp/Knife/Assets/Plugins/Newtonsoft.Json (3).dll</HintPath>
+ <HintPath>C:/Users/TrueDream/Documents/UnityTemp/KnifeHit/Assets/Plugins/Newtonsoft.Json (3).dll</HintPath>
  </Reference>
  <Reference Include="websocket-sharp">
- <HintPath>C:/Users/TrueDream/Documents/UnityTemp/Knife/Assets/Plugins/websocket-sharp.dll</HintPath>
+ <HintPath>C:/Users/TrueDream/Documents/UnityTemp/KnifeHit/Assets/Plugins/websocket-sharp.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>

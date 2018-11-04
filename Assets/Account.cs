@@ -3,6 +3,6 @@ using UnityEngine;
 
 internal class Account
 {
-public int id{get;set;}
-public string Email{get;set;}
+public string name{get;set;}
+public string type{get;set;}
 }

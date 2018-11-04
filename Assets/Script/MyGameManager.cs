@@ -4,24 +4,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MyGameManager : Singleton<MyGameManager> {
-public int Score;
-public Text ScoreText;
-public GameObject GameOver;
-public bool IsGameOver;
+public class MyGameManager : MonoBehaviour {
+
+public GameObject checkNameMenu;
+public GameObject findMatch;
+public GameObject Game;
 
 private void Update() {
-//ScoreText.text = Score.ToString();
+	if(NetworkManager.Instance.findMatch && !NetworkManager.Instance.startGame){
+	FindMatch();
+	}
+	if(NetworkManager.Instance.startGame){
+	StartGame();
+	}
+}
+void FindMatch(){
+	checkNameMenu.SetActive(false);
+	findMatch.SetActive(true);
 }
 
-public void Loose(){
-GameOver.SetActive(true);
-IsGameOver = true;
+void StartGame(){
+	findMatch.SetActive(false);
+	checkNameMenu.SetActive(false);
+	Game.SetActive(true);
 }
-
-public void Restart(){
-	string scene = SceneManager.GetActiveScene().name;
-SceneManager.LoadScene(scene,LoadSceneMode.Single);
+public void ChangeYourName(){
+Debug.LogError("ChangeYourName");
 }
-
 }
